@@ -2,7 +2,7 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import os
 import json
-import urllib2
+
 
 ###BIJAN's Core application and data imports and builds
 from gensim import corpora, models, similarities
@@ -10,19 +10,6 @@ from os import listdir
 from os.path import isfile, join
 from collections import defaultdict
 from pprint import pprint
-
-
-def getExchangeRates():
-    rates = []
-    response = urllib2.urlopen('http://api.fixer.io/latest')
-    data = response.read()
-    rdata = json.loads(data, parse_float=float)
-
-    rates.append(rdata['rates']['USD'])
-    rates.append(rdata['rates']['GBP'])
-    rates.append(rdata['rates']['JPY'])
-    rates.append(rdata['rates']['AUD'])
-    return rates
 
 # Chose data source
 useExcel = True
