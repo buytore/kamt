@@ -47,14 +47,14 @@ busNeedToDeliverable = {}
 
 for i in range(len(businessNeeds)):
     value = []
-    if len(deliverable[i])==0: value = ["NotDefined"]
+    if len(deliverable[i])==0: value = ["Deliverable Not Defined"]
     else: value = deliverable[i]
     busNeedToDeliverable[businessNeeds[i]]=value
 
 busNeedToSolution = {}
 for i in range(len(businessNeeds)):
     value = []
-    if len(solutions[i])==0: value = ["NotDefined"]
+    if len(solutions[i])==0: value = ["Solution Not Defined"]
     else: value = solutions[i]
     busNeedToSolution[businessNeeds[i]]=value
 
@@ -109,7 +109,7 @@ deliverablesToSolution = {}
 
 for i in range(len(deliverable)):
     value = []
-    if len(relatedSoftware[i])==0: value = ["NotDefined"]
+    if len(relatedSoftware[i])==0: value = ["Solution Not Defined"]
     else: value = relatedSoftware[i]
     deliverablesToSolution[deliverable[i]]=value
 
@@ -117,11 +117,11 @@ deliverablesToBusNeed = {}
 
 for i in range(len(deliverable)):
     value = []
-    if len(relatedBusNeed[i])==0: value = ["NotDefined"]
+    if len(relatedBusNeed[i])==0: value = ["Business Need Not Defined"]
     else: value = relatedBusNeed[i]
     deliverablesToBusNeed[deliverable[i]]=value
 
-
+deliverablesToSolution["Deliverable Not Defined"] = ["Solution Not Defined"]
 
 #------------Create the Dictionary for Solution to Deliverable, and solution to BusNeed-----------------
 wb = load_workbook(filename='solutions.xlsx', read_only=True)
@@ -170,7 +170,7 @@ solutionToDel = {}
 
 for i in range(len(solutions)):
     value = []
-    if len(relatedDel[i])==0: value = ["NotDefined"]
+    if len(relatedDel[i])==0: value = ["Deliverable Not Defined"]
     else: value = relatedDel[i]
     solutionToDel[solutions[i]]=value
 
@@ -178,6 +178,6 @@ solutionToNeed = {}
 
 for i in range(len(solutions)):
     value = []
-    if len(relatedBusNeed[i])==0: value = ["NotDefined"]
+    if len(relatedBusNeed[i])==0: value = ["Business Need Not Defined"]
     else: value = relatedBusNeed[i]
     solutionToNeed[solutions[i]]=value
