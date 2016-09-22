@@ -12,7 +12,7 @@ from collections import defaultdict
 from pprint import pprint
 
 
-def getExchangeRates(): #test
+def getExchangeRates():
     rates = []
     response = urllib2.urlopen('http://api.fixer.io/latest')
     data = response.read()
