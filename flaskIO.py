@@ -106,10 +106,6 @@ def hello():
 def home():
     return render_template('home.html', **locals())
 
-@app.route("/test")
-def test():
-    rates = getExchangeRates()
-    return render_template('test.html', **locals())
 
 @app.route("/sp")
 def spRest():
