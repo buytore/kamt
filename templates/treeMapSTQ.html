@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>STQ Catalogue</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['treemap']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+             ['Cat',                            'Parent',               'size',     'color',    'hyperlink'],
+             ['STQ Catalogue',                  null,                     1,          1,            null],
+             ['Capacity Building',              'STQ Catalogue',        null,         1,            null],
+             ['Communications',                 'STQ Catalogue',        null,         1,            null],
+             ['Data Access Privacy Disclosure', 'STQ Catalogue',        null,         1,            null],
+             ['Information Technology',         'STQ Catalogue',        null,         1,            null],
+             ['Strategy',                       'STQ Catalogue',        null,         1,            null],
+             ['Education',                      'Capacity Building',    null,         1,            null],
+             ['Education Liason & Access',      'Education',              1,          1,            'https://en.wikipedia.org/wiki/Liaison_Committee_on_Medical_Education'],
+             ['Clinical e-Communications',      'Communications',         1,          1,            'mark'],
+             ['User Access',                    'Data Access Privacy Disclosure',       null, 1,    'mark'],
+             ['Competency Based Access',        'User Access',            1,          1,            'mark'],
+             ['Role Based Access',              'User Access',            1,          1,            'mark'],
+             ['Contingency Planning',           'Information Technology', null,       1,            'mark'],
+             ['Business Continuity',            'Contingency Planning',   2,          1,            'mark'],
+             ['Hardware',                       'Information Technology', null,       1,            'mark'],
+             ['Point of Care Devices',          'Hardware',               2,          1,            'mark'],
+             ['Touch Devices',                  'Hardware',               3,          1,            'mark'],
+             ['Pointing Devices',               'Hardware',               4,          1,            'https://en.wikipedia.org/wiki/Pointing_device'],
+             ['Visual Simulation',              'Hardware',               2,          1,            'mark'],
+             ['Safety and Quality',             'Strategy',               null,       1,            'mark'],
+             ['eQuality and eSafety Frame',     'Safety and Quality',     5,          1,            'mark']
+             ]);
+    tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
+
+    var options = {
+        highlightOnMouseOver: true,
+        maxDepth: 1,
+        maxPostDepth: 2,
+        minHighlightColor: '#DAF5DD',
+        midHighlightColor: '#B1FABA',
+        maxHighlightColor: '#87FA94',
+        minColor: '#D7F1FA',
+        midColor: '#B8EBFC',
+        maxColor: '#B8EBFC',
+        headerHeight: 15,
+        showScale: true,
+        //height: 500,
+        generateTooltip: showStaticTooltip
+        //useWeightedAverageForAggregation: true
+      };
+
+    tree.draw(data, options);
+
+    function showStaticTooltip(row, size, value) {
+        return '<div style="background:#fd9; padding:10px; border-style:solid">' +
+        //'Read more about the great <a href=' + data.getValue(row, 4) + '>Hyperlink</a>.</div>';
+        'Click here to see the article <a href=' + data.getValue(row, 4) + ' target="_blank">Visit W3Schools!</a>.</div>';
+        //<iframe name="myDemoFrame" src="http://www.weather.gov/" width="800" height="300"></iframe>
+        //<a href="http://www.w3schools.com/" target="_blank">Visit W3Schools!</a>
+  }
+}
+</script>
+</head>
+<body>
+
+  <div class="row" style="margin-right: 5px; margin-left: 5px; margin-top: 5px;">
+  <img src="{{ url_for('static', filename='data/chr-header-logo.gif') }}" alt="AHS Logo" height="50" width="140">
+</div>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Knowledge Asset Management Toolkit</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/wordtree">WordTree </a></li>
+        <li class="active"><a href="/sankey">Snake </a></li>
+        <li class="active"><a href="/tree">STQ Catalogue </a></li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search" action="/ask" method="post">
+        <div class="form-group" style="width: 450px">
+          <input type="text" name="text" class="form-control" style="width: 450px" placeholder="Find the right tools through KMI Intelligent Machine">
+        </div>
+        <button type="submit" class="btn btn-default">Get the Tools</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row" style="margin-right: 15px; margin-left: 15px; margin-top: 15px;">
+    <div class="col-md-6" id="chart_div" style="width: 500px; height: 300px;"></div>
+    <div class="col-md-6" id="frame_div" style="width: 500px; height: 300px;">mark</div>
+</div>
+</body>
+</html>

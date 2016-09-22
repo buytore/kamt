@@ -1,0 +1,4 @@
+Change Management:
+Change Management (CM) refers to any approach to transitioning individuals, teams, and organizations using methods intended to re-direct the use of resources, business process, budget allocations, or other modes of operation that significantly reshape a company or organization. Organizational Change Management (OCM) considers the full organization and what needs to change.[1] Organizational Change Management principles and practices include CM as a tool for change focused solely on the individual.
+
+CM focuses on how people and teams are affected by an organizational transition. It deals with many different disciplines, from behavioral and social sciences to information technology and business solutions. In a project management context, CM may refer to the change control process wherein changes to the scope of a project are formally introduced and approved

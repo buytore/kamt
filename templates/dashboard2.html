@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>
+US Government Agencies' Dataset Contribution
+	</title>
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+		google.load('visualization', '1', {packages: ['table','barchart','columnchart','linechart','piechart']});
+    </script>
+
+
+    <script type="text/javascript">
+    var visualization;
+
+    function drawVisualization() {
+      var query = new google.visualization.Query(
+          'http://data-gov.tw.rpi.edu/ws/sparqlproxy.php?query-uri=http%3A%2F%2Fdata-gov.tw.rpi.edu%2Fsparql%2Fselect_count_agency_from.sparql&output=gvds');
+
+
+      // Send the query with a callback function.
+      query.send(handleQueryResponse);
+    }
+
+    function handleQueryResponse(response) {
+      if (response.isError()) {
+        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+        return;
+      }
+
+      var data = response.getDataTable();
+      visualization = new google.visualization.Table(document.getElementById('visualization_Table'));
+      visualization.draw(data, {height:500, 'allowHtml': true});
+      visualization = new google.visualization.BarChart(document.getElementById('visualization_BarChart'));
+      visualization.draw(data, {height:500});
+      visualization = new google.visualization.ColumnChart(document.getElementById('visualization_ColumnChart'));
+      visualization.draw(data, {height:500});
+      visualization = new google.visualization.LineChart(document.getElementById('visualization_LineChart'));
+      visualization.draw(data, {height:500});
+      visualization = new google.visualization.PieChart(document.getElementById('visualization_PieChart'));
+      visualization.draw(data, {height:500, pieMinimalAngle: 1,is3D: true});
+
+	}
+    google.setOnLoadCallback(drawVisualization);
+    </script>
+
+<style type="text/css">
+div.example {border: #603 dotted; padding: 0.6em; margin: 1em 2em}
+
+/* First example */
+div.items p:not(:target) {display: none}
+div.items p:target {display: block}
+p.menu {margin: 0; padding: 0.4em; background: silver; color: black}
+p.menu a {color: black; border: thin outset silver; padding: 0.1em 0.3em}
+div.items p {height: 6em; overflow: auto; text-align: center; margin: 0}
+#item1 {color: red}
+#item2 {color: green}
+#item3 {color: blue}
+
+/* Tabbed example */
+div.tabs {
+  min-height: 7em;		/* No height: can grow if :target doesn't work */
+  position: relative;		/* Establish a containing block */
+  line-height: 1;		/* Easier to calculate with */
+  z-index: 0}			/* So that we can put other things behind */
+div.tabs > div {
+  display: inline}		/* We want the buttons all on one line */
+div.tabs > div > a {
+  color: black;			/* Looks more like a button than a link */
+  background: #CCC;		/* Active tabs are light gray */
+  padding: 0.2em;		/* Some breathing space */
+  border: 0.1em outset #BBB;	/* Make it look like a button */
+  border-bottom: 0.1em solid #CCC} /* Visually connect tab and tab body */
+div.tabs > div:not(:target) > a {
+  border-bottom: none;		/* Make the bottom border disappear */
+  background: #999}		/* Inactive tabs are dark gray */
+div.tabs > div:target > a,	/* Apply to the targeted item or... */
+:target #default2 > a {		/* ... to the default item */
+  border-bottom: 0.1em solid #CCC; /* Visually connect tab and tab body */
+  background: #CCC}		/* Active tab is light gray */
+div.tabs > div > div {
+  background: #CCC;		/* Light gray */
+  z-index: -2;			/* Behind, because the borders overlap */
+  left: 0; top: 1.3em;		/* The top needs some calculation... */
+  bottom: 0; right: 0;		/* Other sides flush with containing block */
+  overflow: auto;		/* Scroll bar if needed */
+  padding: 0.3em;		/* Looks better */
+  border: 0.1em outset #BBB}	/* 3D look */
+div.tabs > div:not(:target) > div { /* Protect CSS1 & CSS2 browsers */
+  position: absolute }		/* All these DIVs overlap */
+div.tabs > div:target > div, :target #default2 > div {
+  position: absolute;		/* All these DIVs overlap */
+  z-index: -1}			/* Raise it above the others */
+</style>
+<STYLE TYPE="text/css">
+<!--
+ img { border: 0; }
+
+.logoimg{
+  height:64px;
+  width:64px;
+  float:left;
+  position:relative;
+  margin-right:15px;
+  top:-10px;
+}
+.menuimg{
+  height:32px;
+  width:32px;
+  position:relative;
+  top:0px;
+  border:0px;
+}
+.normal {
+  font-family:Helvetica,Arial,sans-serif;
+  font-size:24px;
+  margin:0px 0px 3px 2px;
+  padding: 1px;
+  display:block;
+}
+h3 {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:16px;
+  margin:0px 0px 3px 2px;
+  padding: 1px;
+  display:block;
+}
+h2 {
+  font-family:Helvetica,Arial,sans-serif;
+  font-size:18px;
+  margin:0px 0px 3px 2px;
+  padding: 1px;
+  display:block;
+}
+h1 {
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:32px;
+  margin:0px 0px 3px 2px;
+  padding: 1px;
+  display:block;
+  color:#333;
+}
+
+
+-->
+</STYLE>
+
+
+  </head>
+  <body style="font-family: Arial;border: 0 none;">
+<table width="100%">
+<tr>
+<td width="70%" valign="bottom">
+
+<a href='http://data-gov.tw.rpi.edu' alt='Data-gov Wiki'>
+<img src='http://data-gov.tw.rpi.edu/images/logo-data-gov.png' class="logoimg"/></a>
+
+<center>
+<h2>US Government Agencies' Dataset Contribution</h2>
+</center>
+
+</td>
+<td align="right">
+
+<a class"=info" href="http://data-gov.tw.rpi.edu/demo/static/agency_dataset.php">
+<img src="http://data-gov.tw.rpi.edu/images/blue_home.png" alt="Go to demo page" class="menuimg"/></a>
+
+
+
+<a class"=info" href="http://data-gov.tw.rpi.edu/wiki/Demo:_Agencies%27_Dataset_Contribution_on_Data.gov">
+<img src='http://data-gov.tw.rpi.edu/images/blue_info.png' class="menuimg" alt='go to this demo wiki page'/></a>
+
+<!--
+
+<a class"=info" href="#description">
+<img src='http://data-gov.tw.rpi.edu/images/blue_folder.png' class="menuimg" alt='go to demo description'/></a>
+-->
+
+
+<a class"=info" href="mailto:tw-webmaster@tw.rpi.edu">
+<img src='http://data-gov.tw.rpi.edu/images/blue_mail.png' class="menuimg" alt='Contact us'/>
+</a>
+
+</td>
+</tr>
+</table>
+
+
+  <div class=tabs style="height:550px">
+  <div id=tab_Table>   <a href="#tab_Table">Table</a>
+<div id="visualization_Table" style="height:520px"></div>
+  </div>
+  <div id=tab_BarChart>   <a href="#tab_BarChart">BarChart</a>
+<div id="visualization_BarChart" style="height:520px"></div>
+  </div>
+  <div id=tab_ColumnChart>   <a href="#tab_ColumnChart">ColumnChart</a>
+<div id="visualization_ColumnChart" style="height:520px"></div>
+  </div>
+  <div id=tab_LineChart>   <a href="#tab_LineChart">LineChart</a>
+<div id="visualization_LineChart" style="height:520px"></div>
+  </div>
+  <div id=tab_PieChart>   <a href="#tab_PieChart">PieChart</a>
+<div id="visualization_PieChart" style="height:520px"></div>
+  </div>
+  </div>
+<hr/>
+<div>This demo was created by <a href='http://www.cs.rpi.edu/~dingl'>Li Ding</a> and Sarah Magidson. It queries the data.gov catalog to get all the agencies that have submitted data to data.gov and then sums them up. The result is a pie chart of agencies according to how many datasets they have submitted to data.gov. This demo is based on the following datasets from <a href='http://data.gov/'>data.gov</a>: <ul><li><a href='http://data-gov.tw.rpi.edu/wiki/Dataset_92'>Dataset 92</a> - Data.gov Catalog</li></ul></div>
+  </body>
+</html>

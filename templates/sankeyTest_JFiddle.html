@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      //google.charts.load('current', {'packages':['sankey', 'table']});
+      google.charts.load('current', {'packages':['wordtree', 'table']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        var nodeListData = new google.visualization.DataTable();
+        nodeListData.addColumn('number', 'ID');
+        nodeListData.addColumn('string', 'childLabel');
+        nodeListData.addColumn('number', 'parent');
+        nodeListData.addColumn('number', 'size');
+        nodeListData.addColumn({ type: 'string', role: 'style' });
+
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+        data.addRows([
+          [1, 'A', 'X', 5 ],
+          [2, 'A', 'Y', 7 ],
+          [3, 'A', 'Z', 6 ],
+          [4, 'B', 'X', 2 ],
+          [5, 'B', 'Y', 9 ],
+          [6, 'B', 'Z', 4 ]
+        ]);
+
+        // Sets chart options.
+    var options = {
+      width: 600,
+      sankey: {
+        link: {
+          color: {
+            unfocused: { fillOpacity: 0.2 }
+          }
+        },   //end link
+        node: {
+          color: {
+            unfocused: { fillOpacity: 0.2 }
+          },
+          label: { color: '#ddd' },
+          interactivity: true
+        }  //end node
+      }  //end sankey
+    };    //end of options
+
+    var data2 = new google.visualization.DataTable();
+    data2.addColumn('string', 'Deliverable');
+    data2.addRows([
+    				['A'],
+            ['B'],
+            ['X'],
+            ['Y'],
+            ['Z']
+            ]);
+
+        // Instantiates and draws our sankey, passing in some options.
+    var chart = new google.visualization.WordTree(document.getElementById('sankey_basic'));
+    chart.draw(data, options);
+        // Instantiates and draws table and associated data.
+    var table = new google.visualization.Table(document.getElementById('table_basic'));
+    table.draw(data2, {showRowNumber: false, width: '100%', height: '100%'});
+
+    google.visualization.events.addListener(table, 'select', marksFire);
+    //google.visualization.events.addListener(chart, 'select', marksFire);
+
+    function marksFire(e)  {
+        var selection = table.getSelection();
+        var message = '';
+        //var nameSelection = '';
+
+        for (var i = 0; i < selection.length; i++) {
+            var item = selection[i];
+            if (item.row != null && item.column != null) {
+                message += '{row:' + item.row + ',column:' + item.column + '}';
+            } else if (item.row != null) {
+                message += '{row:' + item.row + '}';
+                nameSelection = data2.getValue(item.row,0)
+            } else if (item.column != null) {
+                message += '{column:' + item.column + '}';
+            } else if (item.name != null) {
+                message += '{name:"' + item.name + '"}';
+                nameSelection = item.name;
+            }
+        }
+        if (message == '') {
+            message = 'nothing';
+        }
+      alert('You selected ' + message);
+
+      //var selection = table.getSelection()[0].row;
+      //var nameSelection = data2.getValue(selection,0)
+      alert('This is it: ' + selection + " Which is: " + nameSelection);
+      //an example I found...
+      chart.setSelection([{name: nameSelection}]);
+      google.visualization.events.trigger(table, 'select', {});
+    };
+}
+    </script>
+  </head>
+  <body>
+    <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
+    <div id="table_basic" style="width: 300px; height: 300px;"></div>
+  </body>
+</html>

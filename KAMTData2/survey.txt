@@ -1,0 +1,4 @@
+Survey:
+A field of applied statistics, survey methodology studies the sampling of individual units from a population and the associated survey data collection techniques, such as questionnaire construction and methods for improving the number and accuracy of responses to surveys.
+An opinion poll, sometimes simply referred to as a poll, is a human research survey of public opinion from a particular sample. Opinion polls are usually designed to represent the opinions of a population by conducting a series of questions and then extrapolating generalities in ratio or within confidence intervals.
+Survey can be used to gather members, team members and everyone's opinions. It can also help with gathering ideas. 

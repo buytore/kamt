@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selector</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" defer>
+
+var busToDel = {{json1|safe}};          //Trying this one.
+var busToSol = {{json2|safe}};
+var delToBus = {{json3|safe}};
+var delToSol = {{json4|safe}};
+var solToBus = {{json5|safe}};
+var solToDel = {{json6|safe}};
+
+var businessKeys    =  Object.keys(busToDel);
+var deliverableKeys = Object.keys(delToBus);
+var solutionKeys = Object.keys(solToBus);
+
+var sanKey = [];
+
+google.charts.load("visualization", "1", {'packages':['sankey']});
+google.charts.setOnLoadCallback(drawSankeyChart);
+
+function drawSankeyChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'From');
+    data.addColumn('string', 'To');
+    data.addColumn('number', 'Weight');
+    var wordTree = [];   //Reset after Initialization
+    var wordNode = [];
+    for (var i in busToDel) {
+        for (var j=0; j<busToDel[i].length; j++) {
+            //alert(busToDel[i][0]);
+            wordNode = [i, busToDel[i][j], 3];
+            wordTree.push(wordNode);
+            wordNode = [];
+        }
+    }
+    data.addRows(wordTree);
+
+    var data2 = new google.visualization.DataTable();
+    data2.addColumn('string', 'From');
+    data2.addColumn('string', 'To');
+    data2.addColumn('number', 'Weight');
+    var wordTree2 = [];
+    var wordNode2 = [];
+    for (var i in delToSol) {
+        for (var j=0; j<delToSol[i].length; j++) {
+            //alert(busToDel[i][0]);
+            wordNode2 = [i, delToSol[i][j], 3];
+            wordTree2.push(wordNode2);
+            wordNode2 = [];
+        }
+    }
+    data2.addRows(wordTree2);
+
+    // Sets chart options.
+    var options = {
+      width: 800,
+      height: 600,
+      sankey: {
+          node: {
+            label: {
+              fontName: 'Arial',
+              fontSize: 10,
+              color: '#000',
+              bold: true,
+              italic: false
+            },
+            interactivity: true, // Allows you to select nodes.
+            labelPadding: 6,     // Horizontal distance between the label and the node.
+            nodePadding: 10,     // Vertical distance between nodes.
+            width: 15,            // Thickness of the node.
+          }
+        }
+    };
+
+    // Instantiates and draws our chart, passing in some options.
+    var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+    var chart2 = new google.visualization.Sankey(document.getElementById('sankey_basic2'));
+    chart.draw(data, options);
+    chart2.draw(data2, options);
+}
+
+</script>
+
+<div class="row" style="margin-right: 15px; margin-left: 35px; margin-top: 15px;"><b>SELECTION</b></div>
+<div class="row" style="margin-right: 15px; margin-left: 15px;">
+    <div class="col-md-1" style="margin-left: 15px;">
+        <div id="radioSelector"></div>
+        <div class="radio"><label>
+            <input type="radio" name="bb" id="r1" value="busNeed" onclick="setSelect('busNeeddd')" checked > <b>Requirement</b> <br></label></div>
+        <div class="radio"><label>
+            <input type="radio" name="bb" id="r2" value="deliverable" onclick="setSelect('deliverabledd')" > <b>Deliverable</b> <br> </label></div>
+        <div class="radio"><label>
+            <input type="radio" name="bb" id="r3" value="solution" onclick="setSelect('solutiondd')" > <b>Solution</b> <br></label></div>
+     </div>
+    <div class="col-md-6" style="margin-right: 15px; margin-top: 23px;">
+        <div class="form-group focus" style="margin-top: 15px;"><label>What are you looking for?</label>
+            <select name="choice" id="choice" onchange="getChoice()" style="color: #333333; /*height: 38px;width: 228px;*/"></select>
+    </div></div>
+</div>
+<div class="row" style="border-style: solid">
+    <div class="col-md-6" id="sankey_basic" style="border-style: solid"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-6" id="sankey_basic2" style="border-style: solid"></div>
+</div>
+</body>
+</html>

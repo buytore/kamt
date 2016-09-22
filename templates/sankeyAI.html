@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selector</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" defer>
+
+var busToDel = {{json1|safe}};          //Trying this one.
+//var busToSol = {{json2|safe}};
+var delToBus = {{json3|safe}};          //Bijan working to provide
+var delToSol = {{json4|safe}};
+//var solToBus = {{json5|safe}};
+//var solToDel = {{json6|safe}};
+
+//var businessKeys    =  Object.keys(busToDel);
+//var deliverableKeys = Object.keys(delToBus);
+//var solutionKeys = Object.keys(solToBus);
+
+var sanKey = [];
+var tableList = [];
+
+//Added for SP List retrieval
+
+//var siteUrl = "https://share.ahsnet.ca/teams/kmqa", busNeedListID = "{9DC112D0-A174-4C6E-93A2-C46287E0530E}";
+//$.get(siteUrl + "/_vti_bin/owssvr.dll?Cmd=Display&XMLDATA=TRUE&List=" + busNeedListID, function(xml) {
+//    var zrow = xml.getElementsByTagName("z:row");
+//    for(var i = 0; i<zrow.length; i++) {
+//        alert([zrow[i].getAttribute("ows_Title"), zrow[i].getAttribute("ows_deliverable"))]);
+//    }
+//});
+
+google.charts.load("visualization", "1", {'packages':['sankey', 'table']});
+google.charts.setOnLoadCallback(drawSankeyChart);
+
+function drawSankeyChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'From');
+    data.addColumn('string', 'To');
+    data.addColumn('number', 'Weight');
+    // data.addColumn({ type: 'string', role: 'style' });  //allows ability to add color to entries
+    var wordTree = [];   //Reset after Initialization
+    var wordNode = [];
+    var aiResponse = {{json7|safe}};
+    var notFound = ["NOTHING FOUND", "Please Search Again", 3];
+    //notFound.push();
+    if (aiResponse.length == 0)  {
+        wordTree = (notFound);
+        alert("Please expand your entry to a statement");
+    }else  {
+        for (var i=0; i <aiResponse.length; i++) {
+            for (var j=0; j<delToBus[aiResponse[i]].length; j++) {
+                wordNode = [delToBus[aiResponse[i]][j], aiResponse[i], 3];
+                wordTree.push(wordNode);
+                wordNode = [];
+            }
+        }
+        var wordNode = [];
+        for (var i=0; i <aiResponse.length; i++) {
+            for (var j=0; j<delToSol[aiResponse[i]].length; j++) {
+                //alert(busToDel[i][0]);
+                wordNode = [aiResponse[i], delToSol[aiResponse[i]][j], 3];
+                wordTree.push(wordNode);
+                wordNode = [];
+            }
+        }
+    }
+    data.addRows(wordTree);
+
+    var data2 = new google.visualization.DataTable();
+    data2.addColumn('string', 'Deliverable');
+    for(var i=0; i<aiResponse.length; i++)  {
+        tableList.push([aiResponse[i]]);
+    }
+    data2.addRows(tableList);
+    var colors = ['#a6cee3', '#b2df8a', '#fb9a99', '#fdbf6f',
+                  '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
+    // Sets chart options.
+    var options = {
+      height: 600,
+      sankey: {
+          node: {
+            label: {
+              fontName: 'Arial',
+              fontSize: 10,
+              color: '#000',
+              bold: true,
+              italic: false
+            },
+            interactivity: true, // Allows you to select nodes.
+            labelPadding: 6,     // Horizontal distance between the label and the node.
+            nodePadding: 10,     // Vertical distance between nodes.
+            width: 15,            // Thickness of the node.
+          },
+        }
+    };
+
+    // Instantiates and draws our chart, passing in some options.
+    var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+    chart.draw(data, options);
+    var table = new google.visualization.Table(document.getElementById('table_div'));
+    table.draw(data2, {showRowNumber: false, width: '100%', height: '100%'});
+
+}   //This is the end of Script
+
+</script>
+
+<div class="row" style="margin-right: 5px; margin-left: 5px; margin-top: 5px;">
+  <img src="{{ url_for('static', filename='data/chr-header-logo.gif') }}" alt="AHS Logo" height="50" width="140">
+</div>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Knowledge Asset Management Toolkit</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/wordtree">WordTree </a></li>
+        <li class="active"><a href="/sankey">Sankey </a></li>
+        <li class="active"><a href="/tree">STQ Catalogue </a></li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search" action="/ask" method="post">
+        <div class="form-group" style="width: 450px">
+          <input type="text" name="text" class="form-control" style="width: 450px" placeholder="Find the right tools through KMI Intelligent Machine">
+        </div>
+        <button type="submit" class="btn btn-default">Get the Tools</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row"></div>
+<div class="row">
+    <div class="col-md-2" style="margin-left: 25px"></div>
+    <div class="col-md-2" style="margin-left: 25px">Requirement</div>
+    <div class="col-md-4" style="text-align: center">Deliverable</div>
+    <div class="col-md-2" style="text-align: right">Solution</div>
+</div>
+
+<div class="row" style="margin-top: 15px"></div>
+
+<div class="row">
+  <div class="col-md-2" id="table_div"></div>
+  <div class="col-md-8" id="sankey_basic"></div>
+
+</div>
+</body>
+</html>

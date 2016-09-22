@@ -1,0 +1,76 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" defer>
+
+
+google.charts.load("visualization", "1", {'packages':['sankey']});
+google.charts.setOnLoadCallback(drawSankeyChart);
+
+function drawSankeyChart() {
+
+    var siteUrl = "https://share.ahsnet.ca/teams/kmqa";
+    var busNeedListID = "{9DC112D0-A174-4C6E-93A2-C46287E0530E}";
+    $.get(siteUrl + "/_vti_bin/owssvr.dll?Cmd=Display&XMLDATA=TRUE&List=" + busNeedListID, function(xml) {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'From');
+    data.addColumn('string', 'To');
+    data.addColumn('number', 'Weight');
+
+var
+zrow = xml.getElementsByTagName("z:row");
+for (var
+i = 0;
+i < zrow.length;
+i + +) {
+    data.addRow([zrow[i].getAttribute("ows_Title"), parseInt(zrow[i].getAttribute("ows_g6ur"))]);
+}
+
+    //Grab List Data
+
+    $.get(siteUrl + "/_vti_bin/owssvr.dll?Cmd=Display&XMLDATA=TRUE&List=" + busNeedListID, function( xml ) {
+    var zrowBusToDel = xml.getElementsByTagName("z:row");
+    var data = new google.visualization.DataTable();
+
+    var wordTree = [];   //Reset after Initialization
+    var wordNode = [];
+    for (var i=0; i<zrowBusToDel.length; i++) {
+        data.addRow([zrow[i].getAttribute("ows_Title"), zrow[i].getAttribute("ows_deliverable"), 3]);
+        wordNode = [i, busToDel[i][j], 3];
+        wordTree.push(wordNode);
+        wordNode = [];
+    }}
+    // Sets chart options.
+    var options = {
+      width: 1024,
+      height: 768,
+      sankey: {
+          node: {
+            label: {
+              fontName: 'Arial',
+              fontSize: 10,
+              color: '#000',
+              bold: true,
+              italic: false
+            },
+            interactivity: true, // Allows you to select nodes.
+            labelPadding: 6,     // Horizontal distance between the label and the node.
+            nodePadding: 10,     // Vertical distance between nodes.
+            width: 15,            // Thickness of the node.
+          }
+        }
+    };
+
+    // Instantiates and draws our chart, passing in some options.
+    var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+    chart.draw(data, options);
+}
+
+</script>
+
+<div class="col-md-1">
+    <div class="col-md-10">
+        <div class="row"></div>
+        <div class="row">Sankey</div>
+            <div class="col-md-8" id="sankey_basic"></div>
+    </div>
+</div>

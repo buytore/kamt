@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>KAMT</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['treemap']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'],
+          ['Global',    null,                 0,                               0],
+          ['America',   'Global',             0,                               0],
+          ['Europe',    'Global',             0,                               0],
+          ['Asia',      'Global',             0,                               0],
+          ['Australia', 'Global',             0,                               0],
+          ['Africa',    'Global',             0,                               0],
+          ['Brazil',    'America',            11,                              10],
+          ['USA',       'America',            52,                              31],
+          ['Mexico',    'America',            24,                              12],
+          ['Canada',    'America',            16,                              -23],
+          ['France',    'Europe',             42,                              -11],
+          ['Germany',   'Europe',             31,                              -2],
+          ['Sweden',    'Europe',             22,                              -13],
+          ['Italy',     'Europe',             17,                              4],
+          ['UK',        'Europe',             21,                              -5],
+          ['China',     'Asia',               36,                              4],
+          ['Japan',     'Asia',               20,                              -12],
+          ['India',     'Asia',               40,                              63],
+          ['Laos',      'Asia',               4,                               34],
+          ['Mongolia',  'Asia',               1,                               -5],
+          ['Israel',    'Asia',               12,                              24],
+          ['Iran',      'Asia',               18,                              13],
+          ['Pakistan',  'Asia',               11,                              -52],
+          ['Egypt',     'Africa',             21,                              0],
+          ['S. Africa', 'Africa',             30,                              43],
+          ['Sudan',     'Africa',             12,                              2],
+          ['Congo',     'Africa',             10,                              12],
+          ['Zaire',     'Africa',             8,                               10]
+        ]);
+
+        tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
+
+        tree.draw(data, {
+          minColor: '#f00',
+          midColor: '#ddd',
+          maxColor: '#0d0',
+          headerHeight: 15,
+          fontColor: 'black',
+          showScale: true
+        });
+
+      }
+    </script>
+  </head>
+  <body>
+
+  <div class="row" style="margin-right: 5px; margin-left: 5px; margin-top: 5px;">
+  <img src="{{ url_for('static', filename='data/chr-header-logo.gif') }}" alt="AHS Logo" height="50" width="140">
+</div>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Knowledge Asset Management Toolkit</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/wordtree">WordTree </a></li>
+        <li class="active"><a href="/sankey">Snake </a></li>
+        <li class="active"><a href="/tree">STQ Catalogue </a></li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search" action="/ask" method="post">
+        <div class="form-group" style="width: 450px">
+          <input type="text" name="text" class="form-control" style="width: 450px" placeholder="Find the right tools through KMI Intelligent Search">
+        </div>
+        <button type="submit" class="btn btn-default">Get the Tools</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row" style="margin-right: 15px; margin-left: 15px; margin-top: 15px;">
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+
+  <title>Google Visualization API Sample</title> 
+
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script> 
+
+  <script type="text/javascript"> 
+    google.load('visualization', '1', {packages: ['annotatedtimeline']});
+    google.setOnLoadCallback(googleVisualizationAPILoaded);
+    function googleVisualizationAPILoaded() {
+      var JSONObject = {
+         cols:[{id:'date',label:'date',type:'date'},
+               {id:'ozone',label:'Ozone_content_value:',type:'number'}],
+         rows:[{c:[{v:new Date('2009/03/11')},{v:52}]},
+               {c:[{v:new Date('2009/03/12')},{v:52}]},
+               {c:[{v:new Date('2009/04/11')},{v:45}]},
+               {c:[{v:new Date('2009/04/18')},{v:51}]},{c:[{v:new Date('2009/04/04')},{v:51}]},{c:[{v:new Date('2009/05/12')},{v:56}]},{c:[{v:new Date('2009/04/05')},{v:57}]},{c:[{v:new Date('2009/04/06')},{v:56}]},{c:[{v:new Date('2009/04/20')},{v:51}]},{c:[{v:new Date('2009/03/19')},{v:53}]},{c:[{v:new Date('2009/05/16')},{v:57}]},{c:[{v:new Date('2009/03/15')},{v:53}]},{c:[{v:new Date('2009/03/24')},{v:52}]},{c:[{v:new Date('2009/03/07')},{v:55}]},{c:[{v:new Date('2009/03/05')},{v:56}]},{c:[{v:new Date('2009/03/03')},{v:47}]},{c:[{v:new Date('2009/04/19')},{v:53}]},{c:[{v:new Date('2009/04/01')},{v:62}]},{c:[{v:new Date('2009/03/13')},{v:53}]},{c:[{v:new Date('2009/03/27')},{v:60}]},{c:[{v:new Date('2009/03/20')},{v:48}]},{c:[{v:new Date('2009/05/07')},{v:50}]},{c:[{v:new Date('2009/04/27')},{v:60}]},{c:[{v:new Date('2009/03/22')},{v:55}]},{c:[{v:new Date('2009/05/17')},{v:56}]},{c:[{v:new Date('2009/04/02')},{v:51}]},{c:[{v:new Date('2009/03/10')},{v:56}]},{c:[{v:new Date('2009/03/30')},{v:63}]},{c:[{v:new Date('2009/03/31')},{v:54}]},{c:[{v:new Date('2009/04/12')},{v:52}]},{c:[{v:new Date('2009/03/16')},{v:52}]},{c:[{v:new Date('2009/05/06')},{v:54}]},{c:[{v:new Date('2009/04/14')},{v:49}]},{c:[{v:new Date('2009/05/09')},{v:58}]},{c:[{v:new Date('2009/04/08')},{v:61}]},{c:[{v:new Date('2009/03/04')},{v:56}]},{c:[{v:new Date('2009/05/02')},{v:33}]},{c:[{v:new Date('2009/03/21')},{v:57}]},{c:[{v:new Date('2009/04/21')},{v:54}]},{c:[{v:new Date('2009/04/10')},{v:48}]},{c:[{v:new Date('2009/03/26')},{v:45}]},{c:[{v:new Date('2009/04/22')},{v:57}]},{c:[{v:new Date('2009/05/14')},{v:56}]},{c:[{v:new Date('2009/03/28')},{v:56}]},{c:[{v:new Date('2009/04/09')},{v:60}]},{c:[{v:new Date('2009/03/18')},{v:50}]},{c:[{v:new Date('2009/05/19')},{v:56}]},{c:[{v:new Date('2009/05/08')},{v:56}]},{c:[{v:new Date('2009/03/06')},{v:57}]},{c:[{v:new Date('2009/04/13')},{v:51}]},{c:[{v:new Date('2009/04/15')},{v:53}]},{c:[{v:new Date('2009/03/17')},{v:49}]},{c:[{v:new Date('2009/05/15')},{v:54}]},{c:[{v:new Date('2009/03/23')},{v:55}]},{c:[{v:new Date('2009/03/01')},{v:52}]},{c:[{v:new Date('2009/05/11')},{v:56}]},{c:[{v:new Date('2009/05/05')},{v:51}]},{c:[{v:new Date('2009/04/17')},{v:41}]},{c:[{v:new Date('2009/05/04')},{v:63}]},{c:[{v:new Date('2009/03/09')},{v:56}]},{c:[{v:new Date('2009/04/07')},{v:53}]},{c:[{v:new Date('2009/04/30')},{v:48}]},{c:[{v:new Date('2009/03/14')},{v:52}]},{c:[{v:new Date('2009/05/10')},{v:42}]},{c:[{v:new Date('2009/04/16')},{v:37}]},{c:[{v:new Date('2009/03/02')},{v:47}]},{c:[{v:new Date('2009/05/03')},{v:56}]},{c:[{v:new Date('2009/04/23')},{v:60}]},{c:[{v:new Date('2009/05/01')},{v:39}]},{c:[{v:new Date('2009/03/25')},{v:51}]}
+              ]};
+    
+      var data = new google.visualization.DataTable(JSONObject, 0.5);
+    
+      var annotatedtimeline = new google.visualization.AnnotatedTimeLine(document.getElementById('visualization'));
+      annotatedtimeline.draw(data, {'displayAnnotations': true});
+    }
+  </script> 
+</head> 
+
+<body style="font-family: Arial;border: 0 none;"> 
+   <span style="font-weight: bold;">Annotated Time line for Ozone content at site ROM406</span> 
+   <div id="visualization" style="width: 800px; height: 400px;"></div> 
+</body> 
+</html>

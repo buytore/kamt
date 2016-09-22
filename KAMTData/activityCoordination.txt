@@ -1,0 +1,2 @@
+Activity:
+Managing and coordinating activities and tasks of the projects. 

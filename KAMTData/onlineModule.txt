@@ -1,0 +1,2 @@
+Online Module:
+An online learning module is a piece of a course. Online modules can be created using PDF, Powerpoint and videos. 
