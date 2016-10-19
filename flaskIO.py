@@ -135,6 +135,23 @@ def cmap():
 def comapping():
     return render_template('comapping.html', **locals())
 
+@app.route("/captivate")
+def captivate():
+    return render_template('captivate.html', **locals())
+
+@app.route("/nVivo")
+def nVivo():
+    return render_template('nVivo.html', **locals())
+
+@app.route("/LessonsLearnedRepository")
+def LessonsLearnedRespository():
+    return render_template('LessonsLearnedRepository.html', **locals())
+
+
+@app.route("/RefWorks")
+def RefWorks():
+    return render_template('RefWorks.html', **locals())
+
 @app.route("/click")
 def click():
     return render_template('clickTest.html', **locals())
