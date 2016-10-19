@@ -139,16 +139,16 @@ def comapping():
 def captivate():
     return render_template('captivate.html', **locals())
 
-@app.route("/nVivo")
+@app.route("/nvivo")
 def nVivo():
     return render_template('nvivo.html', **locals())
 
-@app.route("/LessonsLearnedRepository")
+@app.route("/lessonslearnedrepository")
 def LessonsLearnedRespository():
     return render_template('LessonsLearnedRepository.html', **locals())
 
 
-@app.route("/RefWorks")
+@app.route("/refworks")
 def RefWorks():
     return render_template('refworks.html', **locals())
 
