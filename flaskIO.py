@@ -141,7 +141,7 @@ def captivate():
 
 @app.route("/nVivo")
 def nVivo():
-    return render_template('nVivo.html', **locals())
+    return render_template('nvivo.html', **locals())
 
 @app.route("/LessonsLearnedRepository")
 def LessonsLearnedRespository():
@@ -150,7 +150,7 @@ def LessonsLearnedRespository():
 
 @app.route("/RefWorks")
 def RefWorks():
-    return render_template('RefWorks.html', **locals())
+    return render_template('refworks.html', **locals())
 
 
 @app.route("/click")
