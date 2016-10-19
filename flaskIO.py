@@ -152,6 +152,7 @@ def LessonsLearnedRespository():
 def RefWorks():
     return render_template('RefWorks.html', **locals())
 
+
 @app.route("/click")
 def click():
     return render_template('clickTest.html', **locals())
