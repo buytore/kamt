@@ -151,11 +151,9 @@ def LessonsLearnedRespository():
 def RefWorks():
     return render_template('refworks.html', **locals())
 
-
 @app.route("/click")
 def click():
     return render_template('clickTest.html', **locals())
-
 
 
 ## BIJAN's MAGIC

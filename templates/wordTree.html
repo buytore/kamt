@@ -55,6 +55,7 @@ function drawSimpleNodeChart() {
         google.visualization.events.addListener(wordtreeChart, 'select', function() {
             var state = wordtreeChart.getSelection();
             var xyz = state.word;
+            xyz = xyz.replace(/\s/g, '');
             var urlLink = "http://localhost:5000/" + xyz.toLowerCase();
             //add & launch iFrame
             var html_boxes = document.getElementsByClassName('iFrame-box');
