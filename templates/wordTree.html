@@ -53,10 +53,11 @@ function drawSimpleNodeChart() {
         // Listen for the 'select' event, and call function when
         // the user selects words on the chart.
         google.visualization.events.addListener(wordtreeChart, 'select', function() {
+            var host = window.location.hostname;
             var state = wordtreeChart.getSelection();
             var xyz = state.word;
             xyz = xyz.replace(/\s/g, '');
-            var urlLink = "http://localhost:5000/" + xyz.toLowerCase();
+            var urlLink = "/" + xyz.toLowerCase();
             //add & launch iFrame
             var html_boxes = document.getElementsByClassName('iFrame-box');
             if(document.getElementsByTagName("iframe").length == 0 && !(xyz == 'SOLUTION>' || xyz == 'BUSINESS NEED>' || xyz == 'DELIVERABLE>'))  {
