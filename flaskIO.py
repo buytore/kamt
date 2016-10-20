@@ -135,7 +135,7 @@ def cmap():
 def comapping():
     return render_template('comapping.html', **locals())
 
-@app.route("/captivate")
+@app.route("/adobe-captivate")
 def captivate():
     return render_template('captivate.html', **locals())
 
