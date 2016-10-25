@@ -151,6 +151,15 @@ def LessonsLearnedRespository():
 def RefWorks():
     return render_template('refworks.html', **locals())
 
+##THIS IS TEST STUFF FOR MULTIPLE ITEMS
+@app.route("/iframeitem/<itemname>")
+def iframeItems(itemname="joe"):
+    print "This is the iframeitem", itemname
+    fileName = itemname + ".html"
+    return render_template(fileName, **locals())
+
+
+
 @app.route("/click")
 def click():
     return render_template('clickTest.html', **locals())

@@ -57,7 +57,7 @@ function drawSimpleNodeChart() {
             var state = wordtreeChart.getSelection();
             var xyz = state.word;
             xyz = xyz.replace(/\s/g, '');
-            var urlLink = "/" + xyz.toLowerCase();
+            var urlLink = "/iframeitem/" + xyz.toLowerCase();
             //add & launch iFrame
             var html_boxes = document.getElementsByClassName('iFrame-box');
             if(document.getElementsByTagName("iframe").length == 0 && !(xyz == 'SOLUTION>' || xyz == 'BUSINESS NEED>' || xyz == 'DELIVERABLE>'))  {
