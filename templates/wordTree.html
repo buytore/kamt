@@ -57,10 +57,11 @@ function drawSimpleNodeChart() {
             var state = wordtreeChart.getSelection();
             var xyz = state.word;
             xyz = xyz.replace(/\s/g, '');
-            var urlLink = "/iframeitem/" + xyz.toLowerCase();
+            xyz = xyz.toLowerCase();
+            var urlLink = "/iframeitem/" + xyz;
             //add & launch iFrame
             var html_boxes = document.getElementsByClassName('iFrame-box');
-            if(document.getElementsByTagName("iframe").length == 0 && !(xyz == 'SOLUTION>' || xyz == 'BUSINESS NEED>' || xyz == 'DELIVERABLE>'))  {
+            if(document.getElementsByTagName("iframe").length == 0 && !(xyz == 'solution>' || xyz == 'businessneed>' || xyz == 'deliverable>'))  {
                 var iframe = document.createElement('iframe');
                 iframe.setAttribute("width", "800px");
                 iframe.setAttribute("height", "600px");
@@ -69,7 +70,7 @@ function drawSimpleNodeChart() {
                 //iframe.setAttribute("src", "https://extranet.ahsnet.ca/teams/KAMT/Prototypes/stqcat/Lists/Catalogue/DispForm.aspx?ID=4");
                 iframe.setAttribute("src", urlLink);
                 html_boxes[0].appendChild(iframe); // add to first element, loop thru "html_boxes" if you want to add iframe to all elements
-            }else if(document.getElementsByTagName("iframe").length >= 1 && (xyz == 'SOLUTION>' || xyz == 'BUSINESS NEED>' || xyz == 'DELIVERABLE>'))  {
+            }else if(document.getElementsByTagName("iframe").length >= 1 && (xyz == 'solution>' || xyz == 'businessneed>' || xyz == 'deliverable>'))  {
                 var nodes = document.getElementsByTagName('iframe');
                 for(var i = 0; i < nodes.length; i++)  {
                     nodes[i].parentNode.removeChild(nodes[i]);
@@ -82,7 +83,7 @@ function drawSimpleNodeChart() {
         google.visualization.events.addListener(wordtreeChart, 'ready', function() {
             var state = wordtreeChart.getSelection();
             var xyz = state.word ;
-            if(document.getElementsByTagName("iframe").length >= 1 && (xyz == 'SOLUTION>' || xyz == 'BUSINESS NEED>' || xyz == 'DELIVERABLE>'))  {
+            if(document.getElementsByTagName("iframe").length >= 1 && (xyz == 'solution>' || xyz == 'businessneed>' || xyz == 'deliverable>'))  {
                 var nodes = document.getElementsByTagName('iframe');
                 for(var i = 0; i < nodes.length; i++)  {
                     nodes[i].parentNode.removeChild(nodes[i]);
