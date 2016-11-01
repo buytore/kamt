@@ -137,7 +137,7 @@ def comapping():
 
 @app.route("/adobe-captivate")
 def captivate():
-    return render_template('captivate.html', **locals())
+    return render_template('adobe-captivate.html', **locals())
 
 @app.route("/nvivo")
 def nVivo():
