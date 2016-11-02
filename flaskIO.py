@@ -162,7 +162,7 @@ def iframeItems(itemname="joe"):
 
 @app.route("/click")
 def click():
-    return render_template('clickTest.html', **locals())
+    return render_template('getListData.html', **locals())
 
 
 ## BIJAN's MAGIC
