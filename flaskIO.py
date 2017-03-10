@@ -3,7 +3,6 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 import os
 import json
 
-
 ###BIJAN's Core application and data imports and builds
 from gensim import corpora, models, similarities
 from os import listdir
@@ -66,6 +65,21 @@ index = similarities.MatrixSimilarity.load('tmp/deerwester.index')
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 
+def getProjectData():
+    from openpyxl import load_workbook
+    # ------------Create the Dictionary for Solution to Deliverable, and solution to BusNeed-----------------
+    wb = load_workbook(filename='static/data/ProjectTasks.xlsx', read_only=True)
+    ws = wb['Tableau']
+    rowsWB = []
+    for row in ws.rows:
+        r = []
+        for cell in row:
+            r.append(cell.value)
+        rowsWB.append(r)
+    rowsWB.pop()
+    #rows = rows[1:]
+    jsonProj = json.dumps(rowsWB, ensure_ascii=False)
+    return jsonProj
 
 def getAllData():
     json1 = json.dumps(busNeedToDeliverable, ensure_ascii=False)
@@ -109,10 +123,6 @@ def home():
 
 @app.route("/sp")
 def spRest():
-#    url = "https://extranet.ahsnet.ca/teams/scndp/_api/lists/getbytitle('Project%20Tasks')/items"
-#    doc = lxml.etree.parse(urllib2.urlopen(url)).getroot()
-#    dataRoot = dict(((elt.tag, elt.text) for elt in doc))
-    #print dict(((elt.tag, elt.text) for elt in doc))
     return render_template('index.html', **locals())
 
 @app.route("/jf")
@@ -121,7 +131,8 @@ def jFiddle():
 
 @app.route("/db")
 def dashboard():
-    return render_template('dashboard.html', **locals())
+    jsonProj = getProjectData()
+    return render_template('dashboard3.html', **locals())
 
 @app.route("/tree")
 def tree():
@@ -158,11 +169,52 @@ def iframeItems(itemname="joe"):
     fileName = itemname + ".html"
     return render_template(fileName, **locals())
 
-
-
 @app.route("/click")
 def click():
     return render_template('getListData.html', **locals())
+
+@app.route("/wordJS")
+def wordJS():
+    return render_template('wordTreeJS.html', **locals())
+
+
+############################################################
+# JS Capture and Test
+############################################################
+@app.route('/getmethod/<jsData>')
+def get_javascript_data(jsData):
+    print jsData
+    directResponse = []
+    askText = jsData
+    if askText != '':
+        doc = askText
+        vec_bow = dictionary.doc2bow(doc.lower().split())
+        vec_lsi = lsi[vec_bow]  # convert the query to LSI space
+        # print(vec_lsi)
+
+        sims = index[vec_lsi]  # perform a similarity query against the corpus
+        sims = sorted(enumerate(sims), key=lambda item: -item[1])
+        # print(sims)
+        if sims[0][1] == 0:
+            response = 'I could not find a good answer for you, please explain more about what you are doing.'
+        else:
+            response = "You may find the tool that your are looking for \n" \
+                       "in one or few of the following deliverables (please note the deliverable column)." \
+                       "If the results did not help you please" \
+                       " navigate manually."
+            for i in range(10):
+                response += " " + str(i + 1) + " " + (documents[sims[i][0]].split(":")[0])
+                directResponse.append((documents[sims[i][0]].split(":")[0]))
+    else:
+        response = "You did not enter anything!"
+    json1, json2, json3, json4, json5, json6 = getAllData()
+    json7 = json.dumps(directResponse, ensure_ascii=False)
+    # return render_template('sankeyAI.html', **locals())
+    # response += '<form action="/"><input type="submit" value="Let me try again"></form>'
+    # return response
+    print "This is json7: ", json7
+    print "This is json6: ", json6
+    return jsData
 
 
 ## BIJAN's MAGIC
